@@ -73,10 +73,10 @@
 % --------------------------------------------------------------------
 % Metadata (Change this)
 % --------------------------------------------------------------------
-\title{	\normalsize \textsc{Big data} 	% Subtitle
+\title{	\normalsize \textsc{Modele Regresji} 	% Subtitle
 		 	\\[2.0cm]								% 2cm spacing
 			\HRule{0.5pt} \\						% Upper rule
-			\LARGE \textbf{\uppercase{Problem klasyfikacji - cukrzyca}}	% Title
+			\LARGE \textbf{\uppercase{Problem regresji - Publiczny system wypozyczania rowerów}}	% Title
 			\HRule{2pt} \\ [0.5cm]		% Lower rule + 0.5cm spacing
 			\normalsize \today			% Todays date
 		}
@@ -95,32 +95,49 @@
 \printtitle					% Print the title data as defined above
   	\vfill
 \printauthor				% Print the author data as defined above
+\section{Wstęp}
+
+\hspace{7mm} Publiczny system wypożyczania rowerów jest nową alternatywą dla tradycyjnych wypożyczalni rowerów gdzie cały proces od członkostwa, wypożyczanie i zwrot rowerów jest zautomatyzowane. Dzięki takim systemom, użytkownik ma możliwość wypożyczenia roweru z jednego miejsca i zwrotu w innej stacji w bardzo prosty i wygodny sposób. Obecnie istnieje ponad 500 programów publicznego wypożyczania rowerów na całym świecie, na to składa się ponad 500 tysięcy rowerów.
+
+W związku z tym generowane jest duża ilość danych, która można wykorzystać do ciekawych badań. W przeciwieństwie do innych środków transportu jak autobusy, tramwaje czy metro, długość podróży, miejsce startowe i docelowe jest zapisywane w systemie. Ta cecha zamienia system wypożyczania rowerów w wirtualny czujnik sieci komunikacji miejskiej, która może być użyta do zrozumienia mobilności w mieście.
+
 \section{Opis zbioru danych}
 
-Zbiór zawiera informacje czy u danego pacjenta występuje cukrzyca czy też nie. Pacjentami są kobiety w wieku 21 lat lub starszych pochodzących z Indii. Opis dokonany jest za pomocą zmiennych:
+
+Dane na temat wypożyczeń rowerów pochodzą z ''Capital Bikeshare system'' w mieście Washington D.C. w Stanach Zjednoczonych z lat 2011-2012. 
 
 \begin{itemize}
-\item Pregnancies - ilość ciąż,
-\item Glucose - koncentracja glukozy wg 2-godzinnego testu,
-\item BloodPressure - Ciśnienie krwi (mm Hg),
-\item SkinThickness - gubość fałdu skóry na tricepsie (mm),
-\item Insulin - 2-Hour serum insulin (mu U/ml)
-\item BMI - index BMI (waga w kg/(wzrost w $m^2$)
-\item DiabetesPedigreeFunction - funkcja rodowodu cukrzycy,
-\item Age - wiek w latach,
-\item Outcome - 0 = wynik negatywny (brak cukrzycy), 1 = wynik pozytywny (cukrzyca).
-\end{itemize}
 
-Rozkład klas:
-
+\item instant - indeks rekordu,
+\item dteday - data,
+\item season - pora roku (1: wiosna, 2: lato, 3: jesień, 4: zima),
+\item yr - rok (0: 2011, 1: 2012),
+\item mnth - miesiąc (1 - 12),
+\item hr - godzina (0 - 23),
+\item holiday - czy dzień jest świętem czy nie,
+\item weekday - dzień tygodnia,
+\item workingday - jeśli dzień nie jest ani weekendem ani świętem = 1, w przeciwnym przypadku = 0, if day is neither weekend nor holiday is 1, otherwise is 0.
+\item  weathersit - pogoda danego dnia: 
 \begin{itemize}
-\item 0 - 500 próbek
-\item 1 - 268 próbek
+	\item 1: Clear, Few clouds, Partly cloudy, Partly cloudy
+	\item 2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist
+	\item 3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds
+	\item 4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog
+\end{itemize}
+\item temp - Znormalizowana temperatura w stopniach Celsiusza, 
+\item atemp - Znormalizowana temperatura odczuwalna w stopniach Celsiusza,
+\item hum - Znormalizowana wilgotność,
+\item windspeed - Znormalizowana prędkość wiatru,
+\item casual - liczba zwykłych użytkowników,
+\item registered - liczba zarejestrowanych użytkowników,
+\item cnt - całkowita liczba wynajętych rowerów włączając zwykłych i zarejestrowanych użytkowników.
+
 \end{itemize}
 
-Całkowita liczba obserwacji wynosi 786.
+Całkowita liczba obserwacji wynosi 17 379.
 
 \section{Cel projektu}
 
-Celem projektu jest dokonanie klasyfikacji oraz zbadanie czy u danego pacjenta wystąpi cukrzyca czy nie. Zbadane zostanie także czy dane zawarte w~zbiorze są wystarczające do decyzji o prawdopodobieństwie wystąpienia choroby oraz czy wszystkie z nich wpływają znacząco na wystąpienie choroby.
+\hspace{7mm} Wypożyczanie rowerów jest bardzo powiązane z warunkami atmosferycznymi oraz z tym czy dzień jest wolny czy roboczy. Celem projektu jest stworzenie modelu regresji na bazie którego dokonana zostanie predykcja liczby wypożyczonych rowerów w zależności od zmiennych wymienionych powyżej. 
+
 \end{document}
