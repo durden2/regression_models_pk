@@ -6,4 +6,4 @@
   * krzywa roc
   * macierz korelacji i opisać dlaczego wyrzucamy cechy casual i registered
   * udział procentowy registered i casual
-  
+  * brakujące wartości
