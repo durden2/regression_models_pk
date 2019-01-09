@@ -1,0 +1,143 @@
+\documentclass[12pt]{article}
+\usepackage[english, polish]{babel}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{csquotes}
+% Ponieważ `csquotes` nie posiada polskiego stylu, można skorzystać z mocno zbliżonego stylu chorwackiego.
+\DeclareQuoteAlias{croatian}{polish}
+
+% Użyj czcionki kroju Courier.
+\usepackage{courier}
+
+
+\usepackage{listings}
+\lstloadlanguages{TeX}
+
+\lstset{
+	literate={ą}{{\k{a}}}1
+           {ć}{{\'c}}1
+           {ę}{{\k{e}}}1
+           {ó}{{\'o}}1
+           {ń}{{\'n}}1
+           {ł}{{\l{}}}1
+           {ś}{{\'s}}1
+           {ź}{{\'z}}1
+           {ż}{{\.z}}1
+           {Ą}{{\k{A}}}1
+           {Ć}{{\'C}}1
+           {Ę}{{\k{E}}}1
+           {Ó}{{\'O}}1
+           {Ń}{{\'N}}1
+           {Ł}{{\L{}}}1
+           {Ś}{{\'S}}1
+           {Ź}{{\'Z}}1
+           {Ż}{{\.Z}}1,
+	basicstyle=\footnotesize\ttfamily,
+}
+
+% ------------------------
+
+\AtBeginDocument{
+	\renewcommand{\tablename}{Tabela}
+	\renewcommand{\figurename}{Rys.}
+}
+
+% ------------------------
+% --- < tabele > ---
+
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{makecell}
+\usepackage[flushleft]{threeparttable}
+
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+
+\makeatletter							% Title
+\def\printtitle{%						
+    {\centering \@title\par}}
+\makeatother									
+
+\makeatletter							% Author
+\def\printauthor{%					
+    {\centering \large \@author}}				
+\makeatother							
+
+% --------------------------------------------------------------------
+% Metadata (Change this)
+% --------------------------------------------------------------------
+\title{	\normalsize \textsc{Modele Regresji} 	% Subtitle
+		 	\\[2.0cm]								% 2cm spacing
+			\HRule{0.5pt} \\						% Upper rule
+			\LARGE \textbf{\uppercase{Problem regresji - Publiczny system wypozyczania rowerów}}	% Title
+			\HRule{2pt} \\ [0.5cm]		% Lower rule + 0.5cm spacing
+			\normalsize \today			% Todays date
+		}
+
+\author{
+		Emilia Lubos\\
+		Daria Pacewicz\\
+		Michał Gandor\\		
+}
+\begin{document}
+% ------------------------------------------------------------------------------
+% Maketitle
+% ------------------------------------------------------------------------------
+\thispagestyle{empty}		% Remove page numbering on this page
+
+\printtitle					% Print the title data as defined above
+  	\vfill
+\printauthor				% Print the author data as defined above
+\section{Wstęp}
+
+\hspace{7mm} Publiczny system wypożyczania rowerów jest nową alternatywą dla tradycyjnych wypożyczalni rowerów gdzie cały proces od członkostwa, wypożyczanie i zwrot rowerów jest zautomatyzowane. Dzięki takim systemom, użytkownik ma możliwość wypożyczenia roweru z jednego miejsca i zwrotu w innej stacji w bardzo prosty i wygodny sposób. Obecnie istnieje ponad 500 programów publicznego wypożyczania rowerów na całym świecie, na to składa się ponad 500 tysięcy rowerów.
+
+W związku z tym generowane jest duża ilość danych, która można wykorzystać do ciekawych badań. W przeciwieństwie do innych środków transportu jak autobusy, tramwaje czy metro, długość podróży, miejsce startowe i docelowe jest zapisywane w systemie. Ta cecha zamienia system wypożyczania rowerów w wirtualny czujnik sieci komunikacji miejskiej, która może być użyta do zrozumienia mobilności w mieście.
+
+\section{Opis zbioru danych}
+
+
+Dane na temat wypożyczeń rowerów pochodzą z ''Capital Bikeshare system'' w mieście Washington D.C. w Stanach Zjednoczonych z lat 2011-2012. 
+
+\begin{itemize}
+
+\item instant - indeks rekordu,
+\item dteday - data,
+\item season - pora roku (1: wiosna, 2: lato, 3: jesień, 4: zima),
+\item yr - rok (0: 2011, 1: 2012),
+\item mnth - miesiąc (1 - 12),
+\item hr - godzina (0 - 23),
+\item holiday - czy dzień jest świętem czy nie,
+\item weekday - dzień tygodnia,
+\item workingday - jeśli dzień nie jest ani weekendem ani świętem = 1, w przeciwnym przypadku = 0, if day is neither weekend nor holiday is 1, otherwise is 0.
+\item  weathersit - pogoda danego dnia: 
+\begin{itemize}
+	\item 1: Clear, Few clouds, Partly cloudy, Partly cloudy
+	\item 2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist
+	\item 3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds
+	\item 4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog
+\end{itemize}
+\item temp - Znormalizowana temperatura w stopniach Celsiusza, 
+\item atemp - Znormalizowana temperatura odczuwalna w stopniach Celsiusza,
+\item hum - Znormalizowana wilgotność,
+\item windspeed - Znormalizowana prędkość wiatru,
+\item casual - liczba zwykłych użytkowników,
+\item registered - liczba zarejestrowanych użytkowników,
+\item cnt - całkowita liczba wynajętych rowerów włączając zwykłych i zarejestrowanych użytkowników.
+
+\end{itemize}
+
+Całkowita liczba obserwacji wynosi 17 379.
+
+\section{Cel projektu}
+
+\hspace{7mm} Wypożyczanie rowerów jest bardzo powiązane z warunkami atmosferycznymi oraz z tym czy dzień jest wolny czy roboczy. Celem projektu jest stworzenie modelu regresji na bazie którego dokonana zostanie predykcja liczby wypożyczonych rowerów w zależności od zmiennych wymienionych powyżej. 
+
+\end{document}
