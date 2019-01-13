@@ -138,6 +138,11 @@ Całkowita liczba obserwacji wynosi 17 379.
 
 \section{Cel projektu}
 
-\hspace{7mm} Wypożyczanie rowerów jest bardzo powiązane z warunkami atmosferycznymi oraz z tym czy dzień jest wolny czy roboczy. Celem projektu jest stworzenie modelu regresji na bazie którego dokonana zostanie predykcja liczby wypożyczonych rowerów w zależności od zmiennych wymienionych powyżej. 
+\hspace{7mm} Wypożyczanie rowerów jest bardzo powiązane z warunkami atmosferycznymi oraz z tym czy dzień jest wolny czy roboczy. Celem projektu jest stworzenie modelu regresji na bazie którego dokonana zostanie predykcja liczby wypożyczonych rowerów w zależności od zmiennych wymienionych powyżej oraz jednokierunkowej analizy wariancji która odpowie na pytania czy liczba wypożyczonych rowerów zależy od pory roku.
+\section{Regresja wielokrotna}
+W regresji zmiennymi objaśniającymi mogą być tylko zmienne ilościowe w związku z czym dla tego modelu zbiór został ogarniczony do 6 cech. Zmienne cnt jest sumą casual i registered dlatego też te dwie kolumny nie mogą być brane pod uwagę w rozpatrywanym modelu (występuje korelacja). Dane zostały poddane normalizacji. Po dokonaniu powyższych operacji współczynnik R2 wynosi 0.4609. Następnie dodana została nowa kolumna odpoiwadająca procentowej liczbie zarejestrowanych użytowników w stosunku do wszystkich wypożyczających. Współczynnik R2 wynosi 0.4602.
+Kolejnym krokiem było usunięcie wartości odstających dla zmiennych temp, atemp, hum i windspeed. Ten zabieg zwiększył wartość współczynnika R2 do 0.4633.
+Ostatnim etapem było usunięcie nieistotnych cech z użyciem metod eliminacji. Metoda bacward za zmienną nieistotną uznała zmienną 'temp', natomiast metoda forward nie wykluczyła żadnej z nich. Podjęta została decyzja o usunięciu wybranej nieistotnej kolumny, jednak nie poprawiło to ogólnego wyniku dopasowania danych do modelu regresji.
+\section{Jednokierunkowa analiza wariancji}
 
 \end{document}
