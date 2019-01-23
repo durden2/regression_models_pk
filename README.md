@@ -1,6 +1,3 @@
-# regression_models_pk
-
-# regression_models_pk
 
 ## Topic:
   Number of bikes rental depending in the weather.
